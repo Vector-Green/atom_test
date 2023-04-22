@@ -1,0 +1,17 @@
+{
+  "plugins": {
+    "cssnano": {
+      "preset": [
+        "cssnano-preset-advanced",
+        {
+          "discardComments": {
+            "removeAll": true
+          }
+        }
+      ]
+    },
+    "postcss-csso": {
+      "restructure": true
+    }
+  }
+}
