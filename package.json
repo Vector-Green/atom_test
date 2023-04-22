@@ -11,6 +11,7 @@
     "format": "prettier . --write --ignore-path .prettierignore"
   },
   "devDependencies": {
+    "@nuxt-modules/compression": "^0.1.0",
     "@types/node": "^18.15.13",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
@@ -19,8 +20,9 @@
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
     "nuxt": "^3.4.2",
-    "nuxt-svgo": "^2.0.0",
     "postcss-csso": "^6.0.1",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-svgo": "^1.3.0"
   }
 }

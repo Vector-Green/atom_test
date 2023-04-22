@@ -1,5 +1,7 @@
 import postcssConfig from './postcss.config.json'
 
+import svg from 'vite-plugin-svgo'
+
 export default defineNuxtConfig({
   postcss: process.env.NODE_ENV == 'production' ? postcssConfig : undefined,
   ssr: false,
@@ -9,8 +11,42 @@ export default defineNuxtConfig({
     respectNoSSRHeader: true,
     inlineSSRStyles: false
   },
-  modules: ['nuxt-svgo'],
+  build: {},
+  optimization: {},
+  modules: [
+    [
+      '@nuxt-modules/compression',
+      {
+        algorithm: 'brotliCompress'
+      }
+    ],
+    [
+      '@nuxt-modules/compression',
+      {
+        algorithm: 'gzip'
+      }
+    ]
+  ],
   vite: {
+    plugins: [
+      process.env.NODE_ENV == 'production'
+        ? svg({
+            multipass: true,
+            plugins: [
+              {
+                name: 'preset-default',
+                params: {
+                  overrides: {
+                    convertColors: {
+                      currentColor: true
+                    }
+                  }
+                }
+              }
+            ]
+          })
+        : undefined
+    ].filter(Boolean),
     build: {
       minify: process.env.NODE_ENV == 'production' ? 'terser' : false,
       terserOptions: {
