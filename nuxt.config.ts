@@ -15,15 +15,17 @@ export default defineNuxtConfig({
       crawlLinks: true
     }
   },
-  build: {
-    transpile: ['element-plus']
-  },
   experimental: {
     payloadExtraction: true,
     inlineSSRStyles: false
   },
   modules: [
-    '@element-plus/nuxt',
+    [
+      '@element-plus/nuxt',
+      {
+        importStyle: 'scss'
+      }
+    ],
     [
       '@nuxt-modules/compression',
       {

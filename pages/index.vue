@@ -1,13 +1,12 @@
 <template>
-  <div>123</div>
   <el-button>button</el-button>
+  <ElButton type="success">button</ElButton>
+  <LazyElButton type="warning">lazy button</LazyElButton>
 </template>
 
 <script setup lang="ts">
-import AppLayout from '@/Layouts/DefaultLayout.vue'
-
 defineOptions({
-  layout: AppLayout
+  layout: 'default'
 })
 </script>
 
