@@ -40,7 +40,13 @@ export default defineNuxtConfig({
         algorithm: 'gzip'
       }
     ],
-    '@nuxtjs/i18n',
+    [
+      '@nuxtjs/i18n',
+      {
+        langDir: 'locales'
+      }
+    ],
+
     '@pinia/nuxt'
   ],
   vite: {
