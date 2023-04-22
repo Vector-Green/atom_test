@@ -1,7 +1,7 @@
 import { Locale } from 'vue-i18n'
 
 function getLocale(): Locale {
-  if (process.client) {
+  if (typeof window !== 'undefined') {
     const storageLanguage = localStorage.getItem('language')
     if (storageLanguage) return storageLanguage
 

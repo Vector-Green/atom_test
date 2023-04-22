@@ -2,6 +2,14 @@
   <el-button>button</el-button>
   <div>
     <span>{{ t('How to make') }}</span>
+    <img
+      v-lazy="{
+        src: 'https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg',
+        loading: 'your loading image url',
+        error: 'your error image url'
+      }"
+    />
+
     <span>{{ t('per day by setting adds on FceBook+Instagram') }}</span>
   </div>
   <ElButton type="success">button</ElButton>
@@ -10,10 +18,11 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+//import vLazy from 'vue3-lazyload'
 const { t, locale } = useI18n()
 
 onMounted(() => {
-   locale.value = 'uk'
+  locale.value = 'uk'
 })
 
 defineOptions({
@@ -23,12 +32,14 @@ defineOptions({
 <i18n>
 {
   "en": {
-    "How to make": "",\
+    "How to make": "",
     "per day by setting adds on FceBook+Instagram": "per day by setting adds on FceBook+Instagram",
+    "moneyImgUrl": "https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg"
   },
   "uk": {
     "How to make": "Як заробляти",
     "per day by setting adds on FceBook+Instagram": "на день на налаштуванні рекламних компаній FaceBook+Instagram",
+    "moneyImgUrl": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
   },
 }
 </i18n>

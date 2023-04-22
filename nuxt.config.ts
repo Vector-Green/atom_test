@@ -49,6 +49,11 @@ export default defineNuxtConfig({
     ['@nuxtjs/i18n', { vueI18n: './i18n.config.ts' }],
     '@pinia/nuxt'
   ],
+
+
+  plugins:[
+    { src: '~/plugins/lazy-load.ts', mode: 'client', ssr: false }
+  ],
   vite: {
     plugins: [
       ElementPlus({}),
