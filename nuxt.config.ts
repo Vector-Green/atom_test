@@ -2,13 +2,14 @@ import postcssConfig from './postcss.config.json'
 
 export default defineNuxtConfig({
   postcss: process.env.NODE_ENV == 'production' ? postcssConfig : undefined,
-
+  ssr: false,
   experimental: {
     payloadExtraction: true,
     noVueServer: true,
     respectNoSSRHeader: true,
     inlineSSRStyles: false
   },
+  modules: ['nuxt-svgo'],
   vite: {
     build: {
       minify: process.env.NODE_ENV == 'production' ? 'terser' : false,
