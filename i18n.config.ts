@@ -1,21 +1,37 @@
 import { Locale } from 'vue-i18n'
 
 function getLocale(): Locale {
-  const cookieLanguage = sessionStorage.getItem('language')
-  if (cookieLanguage) return cookieLanguage
+  if (process.client) {
+    const storageLanguage = localStorage.getItem('language')
+    if (storageLanguage) return storageLanguage
 
-  const navigatorLanguage = navigator.language.toLowerCase()
-  if (navigatorLanguage) return navigatorLanguage
+    const navigatorLanguage = navigator.language.toLowerCase()
+    if (navigatorLanguage) return navigatorLanguage
+  }
 
-  return process.env.VUE_APP_I18N_LOCALE || 'en'
+  return import.meta.env.I18N_LOCALE || 'en'
 }
 
 export default defineI18nConfig(() => ({
   globalInjection: false,
-
+  locales: [
+    {
+      code: 'en',
+      file: 'en.json'
+    },
+    {
+      code: 'ru',
+      file: 'ru.json'
+    },
+    {
+      code: 'uk',
+      file: 'uk.json'
+    }
+  ],
   legacy: false,
   locale: getLocale(),
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+  langDir: 'locales',
+  fallbackLocale: import.meta.env.I18N_FALLBACK_LOCALE || 'en',
   pluralRules: {
     ru: function (choice: number, choicesLength: number) {
       if (choicesLength == 1) return 0

@@ -6,15 +6,21 @@ import ElementPlus from 'unplugin-element-plus/dist/vite'
 
 import svg from 'vite-plugin-svgo'
 
+import dotenvFlow from 'dotenv-flow'
+dotenvFlow.config({
+  silent: true
+})
+
 export default defineNuxtConfig({
   postcss: process.env.NODE_ENV == 'production' ? postcssConfig : undefined,
-  ssr: false,
+  ssr: true,
   nitro: {
     compressPublicAssets: true,
     prerender: {
       crawlLinks: true
     }
   },
+
   experimental: {
     payloadExtraction: true,
     inlineSSRStyles: false
@@ -40,13 +46,7 @@ export default defineNuxtConfig({
         algorithm: 'gzip'
       }
     ],
-    [
-      '@nuxtjs/i18n',
-      {
-        langDir: 'locales'
-      }
-    ],
-
+    ['@nuxtjs/i18n', { vueI18n: './i18n.config.ts' }],
     '@pinia/nuxt'
   ],
   vite: {

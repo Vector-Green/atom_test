@@ -10,7 +10,8 @@ export const useVideoStore = defineStore({
   id: 'video-store',
   state: () => {
     return {
-      videosList: <VideoItem[]>[]
+      videosList: <VideoItem[]>[],
+      currentVideoIndex: <number | undefined>undefined
     }
   },
   actions: {
@@ -20,6 +21,9 @@ export const useVideoStore = defineStore({
         { name: 'someNameText', imageSrc: 'someUrl', videoSrc: 'someVideoSrc' },
         { name: 'someNameText', imageSrc: 'someUrl', videoSrc: 'someVideoSrc' }
       ]
+    },
+    setVideo(index: number) {
+      this.currentVideoIndex = index
     }
   },
   getters: {

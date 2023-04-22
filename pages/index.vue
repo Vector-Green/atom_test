@@ -1,15 +1,37 @@
 <template>
   <el-button>button</el-button>
+  <div>
+    <span>{{ t('How to make') }}</span>
+    <span>{{ t('per day by setting adds on FceBook+Instagram') }}</span>
+  </div>
   <ElButton type="success">button</ElButton>
   <LazyElButton type="warning">lazy button</LazyElButton>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
+
+onMounted(() => {
+   locale.value = 'uk'
+})
+
 defineOptions({
   layout: 'default'
 })
 </script>
-
+<i18n>
+{
+  "en": {
+    "How to make": "",\
+    "per day by setting adds on FceBook+Instagram": "per day by setting adds on FceBook+Instagram",
+  },
+  "uk": {
+    "How to make": "Як заробляти",
+    "per day by setting adds on FceBook+Instagram": "на день на налаштуванні рекламних компаній FaceBook+Instagram",
+  },
+}
+</i18n>
 <!-- <template>
   <header>
     <div class="logo">
