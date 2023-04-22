@@ -27,6 +27,7 @@ export const useVideoStore = defineStore({
     }
   },
   getters: {
-    videos: (state) => state.videosList
+    videos: (state) => state.videosList,
+    currentVideo: (state)=>state.currentVideoIndex
   }
 })

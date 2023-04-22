@@ -1,28 +1,61 @@
 <template>
-  <el-button>button</el-button>
-  <div>
+  <div class="page"></div>
+  <div class="header">
     <span>{{ t('How to make') }}</span>
-    <img
+    <!-- <img
       v-lazy="{
         src: 'https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg',
         loading: 'your loading image url',
         error: 'your error image url'
       }"
-    />
-
+    /> -->
     <span>{{ t('per day by setting adds on FceBook+Instagram') }}</span>
   </div>
-  <ElButton type="success">button</ElButton>
-  <LazyElButton type="warning">lazy button</LazyElButton>
+  <div class="title" v-if="store.currentVideo !== undefined && store.videosList?.length">
+    <span class="title__number"> {{ t('Episode') }} {{ store.currentVideo }} </span>
+    <span class="title__text">
+      {{ store.videosList[store.currentVideo]?.name }}
+    </span>
+  </div>
 </template>
+<style scoped lang="scss">
+.page {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
+    &__number {
+      color: orange;
+    }
+    &__text {
+      color: black;
+    }
+  }
+}
+</style>
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 //import vLazy from 'vue3-lazyload'
+import { useVideoStore } from '~/store/videoStore'
+const store = useVideoStore()
+
 const { t, locale } = useI18n()
 
 onMounted(() => {
   locale.value = 'uk'
+
+  store.fetchVideos()
+  if (store.videosList?.length) {
+    store.setVideo(store.videosList?.length - 1)
+  }
 })
 
 defineOptions({
