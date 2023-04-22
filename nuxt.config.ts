@@ -25,7 +25,8 @@ export default defineNuxtConfig({
       {
         algorithm: 'gzip'
       }
-    ]
+    ],
+    '@nuxtjs/i18n'
   ],
   vite: {
     plugins: [
