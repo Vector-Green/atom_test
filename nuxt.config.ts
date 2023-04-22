@@ -1,35 +1,50 @@
 import postcssConfig from './postcss.config.json'
 
+import DefineOptions from 'unplugin-vue-define-options/dist/rollup'
+
+import ElementPlus from 'unplugin-element-plus/dist/vite'
+
 import svg from 'vite-plugin-svgo'
 
 export default defineNuxtConfig({
   postcss: process.env.NODE_ENV == 'production' ? postcssConfig : undefined,
   ssr: false,
+  nitro: {
+    compressPublicAssets: true,
+    prerender: {
+      crawlLinks: true
+    }
+  },
+  build: {
+    transpile: ['element-plus']
+  },
   experimental: {
     payloadExtraction: true,
-    noVueServer: true,
-    respectNoSSRHeader: true,
     inlineSSRStyles: false
   },
-  build: {},
-  optimization: {},
   modules: [
+    '@element-plus/nuxt',
     [
       '@nuxt-modules/compression',
       {
+        filter: () => true,
         algorithm: 'brotliCompress'
       }
     ],
     [
       '@nuxt-modules/compression',
       {
+        filter: () => true,
         algorithm: 'gzip'
       }
     ],
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@pinia/nuxt'
   ],
   vite: {
     plugins: [
+      ElementPlus({}),
+      DefineOptions(),
       process.env.NODE_ENV == 'production'
         ? svg({
             multipass: true,
@@ -47,7 +62,7 @@ export default defineNuxtConfig({
             ]
           })
         : undefined
-    ].filter(Boolean),
+    ],
     build: {
       minify: process.env.NODE_ENV == 'production' ? 'terser' : false,
       terserOptions: {
