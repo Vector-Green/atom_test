@@ -1,4 +1,4 @@
 <template>
-  <div>FootBar</div>
+  <div></div>
 </template>
 <script setup lang="ts"></script>

@@ -4,8 +4,6 @@ import DefineOptions from 'unplugin-vue-define-options/dist/rollup'
 
 import ElementPlus from 'unplugin-element-plus/dist/vite'
 
-import svg from 'vite-plugin-svgo'
-
 import dotenvFlow from 'dotenv-flow'
 dotenvFlow.config({
   silent: true
@@ -13,13 +11,7 @@ dotenvFlow.config({
 
 export default defineNuxtConfig({
   postcss: process.env.NODE_ENV == 'production' ? postcssConfig : undefined,
-  ssr: true,
-  nitro: {
-    compressPublicAssets: true,
-    prerender: {
-      crawlLinks: true
-    }
-  },
+  ssr: false,
 
   experimental: {
     payloadExtraction: true,
@@ -50,32 +42,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
-
-  plugins:[
-    { src: '~/plugins/lazy-load.ts', mode: 'client', ssr: false }
-  ],
   vite: {
-    plugins: [
-      ElementPlus({}),
-      DefineOptions(),
-      process.env.NODE_ENV == 'production'
-        ? svg({
-            multipass: true,
-            plugins: [
-              {
-                name: 'preset-default',
-                params: {
-                  overrides: {
-                    convertColors: {
-                      currentColor: true
-                    }
-                  }
-                }
-              }
-            ]
-          })
-        : undefined
-    ],
+    plugins: [ElementPlus({}), DefineOptions()],
     build: {
       minify: process.env.NODE_ENV == 'production' ? 'terser' : false,
       terserOptions: {

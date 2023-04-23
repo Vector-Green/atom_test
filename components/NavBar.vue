@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="logo">
-      <img class="logo__first" :src="logoSvg" />
+      <img class="logo__first" loading="lazy" :src="logoSvg" />
     </div>
   </nav>
 </template>
