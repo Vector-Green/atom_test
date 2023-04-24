@@ -4,6 +4,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module'
   },
+  plugins: ['eslint-comments'],
   extends: ['plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-essential'],
   root: true,
   env: {

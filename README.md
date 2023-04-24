@@ -1,4 +1,5 @@
 # Nuxt 3
+
 ## Setup
 
 Make sure to install the dependencies:

@@ -15,7 +15,11 @@
       </span>
     </div>
     <div class="video">
-      <embed class="video__player" type="text/html" :src="currentVideoObj?.videoSrc" />
+      <youtube
+        :videoId="currentVideoObj?.videoSrc"
+        @ended="videoEnded = true"
+        class="video__player"
+      />
       <div class="video__buttons">
         <button
           :disabled="!item.isAccessible"
@@ -78,8 +82,14 @@
           {{ t('Did you watched it)? Lets get access to the next one') }}
         </div>
         <button
+          :disabled="!isNextAccessible"
           class="hint__button"
-          @click="store.setVideo(nextArrItem(store.currentVideo, store.videosList?.length))"
+          @click="
+            () => {
+              videoEnded = false
+              store.setVideo(nextArrItem(store.currentVideo, store.videosList?.length))
+            }
+          "
         >
           {{ t('Next episode') }}
         </button>
@@ -284,6 +294,10 @@
         &:hover {
           background: orangered;
         }
+        &:disabled {
+          background: gray;
+          cursor: unset;
+        }
       }
     }
   }
@@ -292,6 +306,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
+import youtube from '~/components/YoutubePlayer.vue'
+
 import lockSvg from '~/assets/lock.svg'
 import playSvg from '~/assets/play.svg'
 
@@ -299,6 +315,19 @@ import verticalLine from '~/assets/verticalLine.png'
 import from100uk from '~/assets/from100uk.png'
 
 import { useVideoStore } from '~/store/videoStore'
+
+const videoEnded = ref(false)
+
+const isNextAccessible = computed(() => {
+  if (typeof store.currentVideo === 'number' && store.videosList?.length) {
+    if (store.videosList[store.currentVideo + 1]?.isAccessible) {
+      return true
+    } else if (videoEnded.value) {
+      return true
+    }
+  }
+  return false
+})
 const store = useVideoStore()
 const { t, locale } = useI18n()
 
